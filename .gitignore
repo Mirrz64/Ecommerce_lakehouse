@@ -1,0 +1,12 @@
+# Ignore local Docker database storage files
+postgres_data/
+.postgres_data/
+
+# Ignore local environment variable secrets
+.env/
+
+# Ignore temporary system/editor files
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
