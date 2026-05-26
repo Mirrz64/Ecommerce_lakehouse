@@ -3,7 +3,7 @@ postgres_data/
 .postgres_data/
 
 # Ignore local environment variable secrets
-.env/
+.env
 
 # Ignore temporary system/editor files
 .DS_Store
