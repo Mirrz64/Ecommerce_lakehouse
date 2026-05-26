@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_source
+    schema: raw_source
+    tables:
+      - name: customers
+        description: "Raw customer records containing profile information."
+      - name: orders
+        description: "Raw operational order transaction details."

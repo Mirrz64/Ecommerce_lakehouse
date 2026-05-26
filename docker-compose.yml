@@ -1,5 +1,9 @@
-x-airflow-common: &airflow-common
-  image: apache/airflow:2.9.1-python3.10
+x-airflow-common:
+  # 👇 Tell Docker to build your local Dockerfile instead of pulling a raw image
+  &airflow-common
+  build:
+    context: .
+    dockerfile: Dockerfile
   environment:
     - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@postgres:5432/airflow_metadata
@@ -7,11 +11,12 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__LOAD_EXAMPLES=False
     - AIRFLOW__WEBSERVER__SECRET_KEY=${AIRFLOW_SECRET_KEY}
     - AIRFLOW_UID=0
-    # 👇 Mapping these keys so your python scripts can see them natively 👇
+    # Mapping these keys so your python scripts can see them natively
     - DB_HOST=postgres
     - DB_NAME=airflow_metadata
     - DB_USER=postgres
     - DB_PASSWORD=${POSTGRES_PASSWORD}
+    # 💡 Notice that the old _PIP_ADDITIONAL rows are completely gone now!
   volumes:
     - ./dags:/opt/airflow/dags
     - ./scripts:/opt/airflow/scripts

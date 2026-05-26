@@ -1,0 +1,27 @@
+name: 'ecommerce_lakehouse'
+version: '1.0.0'
+config-version: 2
+
+# This profile name links directly to your credentials file (profiles.yml)
+profile: 'ecommerce_profile'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# This defines how each tier in your Medallion architecture will be built
+models:
+  ecommerce_lakehouse:
+    staging:
+      +materialized: view         # Staging models are lightweight views
+    intermediate:
+      +materialized: table        # Silver layer is built as raw physical tables
+    marts:
+      +materialized: table        # Gold layer is optimized as physical tables
